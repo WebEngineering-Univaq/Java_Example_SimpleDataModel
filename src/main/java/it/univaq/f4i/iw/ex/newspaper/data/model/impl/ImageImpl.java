@@ -1,4 +1,4 @@
-package it.univaq.f4i.iw.ex.newspaper.data.impl;
+package it.univaq.f4i.iw.ex.newspaper.data.model.impl;
 
 import it.univaq.f4i.iw.framework.data.DataException;
 import it.univaq.f4i.iw.ex.newspaper.data.model.Image;

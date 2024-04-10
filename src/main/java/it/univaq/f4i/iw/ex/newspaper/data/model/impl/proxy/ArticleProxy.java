@@ -1,9 +1,9 @@
-package it.univaq.f4i.iw.ex.newspaper.data.proxy;
+package it.univaq.f4i.iw.ex.newspaper.data.model.impl.proxy;
 
 import it.univaq.f4i.iw.ex.newspaper.data.dao.AuthorDAO;
 import it.univaq.f4i.iw.ex.newspaper.data.dao.ImageDAO;
 import it.univaq.f4i.iw.ex.newspaper.data.dao.IssueDAO;
-import it.univaq.f4i.iw.ex.newspaper.data.impl.ArticleImpl;
+import it.univaq.f4i.iw.ex.newspaper.data.model.impl.ArticleImpl;
 import it.univaq.f4i.iw.ex.newspaper.data.model.Author;
 import it.univaq.f4i.iw.ex.newspaper.data.model.Image;
 import it.univaq.f4i.iw.ex.newspaper.data.model.Issue;

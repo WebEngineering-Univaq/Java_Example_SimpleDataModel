@@ -1,6 +1,7 @@
-package it.univaq.f4i.iw.ex.newspaper.data.dao;
+package it.univaq.f4i.iw.ex.newspaper.data.dao.impl;
 
-import it.univaq.f4i.iw.ex.newspaper.data.proxy.ArticleProxy;
+import it.univaq.f4i.iw.ex.newspaper.data.dao.ArticleDAO;
+import it.univaq.f4i.iw.ex.newspaper.data.model.impl.proxy.ArticleProxy;
 import it.univaq.f4i.iw.ex.newspaper.data.model.Article;
 import it.univaq.f4i.iw.ex.newspaper.data.model.Issue;
 import it.univaq.f4i.iw.framework.data.DAO;

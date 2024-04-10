@@ -1,6 +1,6 @@
-package it.univaq.f4i.iw.ex.newspaper.data.proxy;
+package it.univaq.f4i.iw.ex.newspaper.data.model.impl.proxy;
 
-import it.univaq.f4i.iw.ex.newspaper.data.impl.ImageImpl;
+import it.univaq.f4i.iw.ex.newspaper.data.model.impl.ImageImpl;
 import it.univaq.f4i.iw.framework.data.DataException;
 import it.univaq.f4i.iw.framework.data.DataItemProxy;
 import it.univaq.f4i.iw.framework.data.DataLayer;

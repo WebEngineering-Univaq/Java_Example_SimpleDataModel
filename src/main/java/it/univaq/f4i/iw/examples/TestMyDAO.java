@@ -8,7 +8,7 @@
  */
 package it.univaq.f4i.iw.examples;
 
-import it.univaq.f4i.iw.ex.newspaper.data.dao.NewspaperDataLayer;
+import it.univaq.f4i.iw.ex.newspaper.data.dao.impl.NewspaperDataLayer;
 import it.univaq.f4i.iw.ex.newspaper.data.model.Article;
 import it.univaq.f4i.iw.ex.newspaper.data.model.Author;
 import it.univaq.f4i.iw.ex.newspaper.data.model.Issue;
@@ -19,9 +19,7 @@ import it.univaq.f4i.iw.framework.security.SecurityHelpers;
 import it.univaq.f4i.iw.framework.utils.ServletHelpers;
 import java.io.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.naming.InitialContext;
@@ -41,36 +39,41 @@ public class TestMyDAO extends HttpServlet {
 
     private void action_manipulate(HttpServletRequest request, HttpServletResponse response) throws IOException, DataException {
 
+        //preleviamo il data layer 
+        //get the data layer
         NewspaperDataLayer dl = (NewspaperDataLayer) request.getAttribute("datalayer");
 
-        HTMLResult result = new HTMLResult(getServletContext());
-
-        result.setTitle("Data Model Manipulation");
-        result.appendToBody("<h1>Data Model Manipulation</h1>");
-
+        //manipoliamo i dati usando le interfacce esposta dai DAO accessibili dal data layer
+        //manipulate the data using the interfaces exposed by the DAOs accessible from the data layer
         int latest_number = dl.getIssueDAO().getLatestIssue().getNumber();
-        result.appendToBody("<p>Latest issue is #" + latest_number + "</p>");
-
-        result.appendToBody("<p>Adding issue " + (latest_number + 1) + "...</p>");
-        Issue issue = dl.getIssueDAO().createIssue();
-        issue.setNumber((latest_number + 1));
-        issue.setDate(LocalDate.now());
-        dl.getIssueDAO().storeIssue(issue);
-
-        result.appendToBody("<p>Adding article on new issue...</p>");
-        Article article = dl.getArticleDAO().createArticle();
-        Author author = dl.getAuthorDAO().getAuthor(1); //assumiamo che esista già
-
+        //        
+        Issue new_issue = dl.getIssueDAO().createIssue();
+        new_issue.setNumber((latest_number + 1));
+        new_issue.setDate(LocalDate.now());
+        dl.getIssueDAO().storeIssue(new_issue);
+        //        
+        Article new_article = dl.getArticleDAO().createArticle();
+        Author author = dl.getAuthorDAO().getAuthor(1); //assume it already exists
         if (author != null) {
-            article.setAuthor(author);
-            article.setTitle(SecurityHelpers.addSlashes("NEW ARTICLE FOR ISSUE" + (latest_number + 1)));
-            article.setText(SecurityHelpers.addSlashes("article text"));
-            article.setIssue(issue);
-            dl.getArticleDAO().storeArticle(article);
-            result.appendToBody("<p>Fetching new latest issue...</p>");
-            issue = dl.getIssueDAO().getLatestIssue();
-            result.appendToBody("<p>Number: " + issue.getNumber() + ", Date: " + issue.getDate().format(DateTimeFormatter.ISO_LOCAL_DATE) + "</p>");
-            List<Article> articles = issue.getArticles();
+            new_article.setAuthor(author);
+            new_article.setTitle(SecurityHelpers.addSlashes("NEW ARTICLE FOR ISSUE" + (latest_number + 1)));
+            new_article.setText(SecurityHelpers.addSlashes("article text"));
+            new_article.setIssue(new_issue);
+            dl.getArticleDAO().storeArticle(new_article);
+            //
+            Issue latest_issue = dl.getIssueDAO().getLatestIssue();
+            List<Article> articles = latest_issue.getArticles();
+
+            //mandiamo in output quanche informazione prelavata dal data model
+            //output some information from the data model
+            HTMLResult result = new HTMLResult(getServletContext());
+            result.setTitle("Data Model Manipulation");
+            result.appendToBody("<h1>Data Model Manipulation</h1>");
+            result.appendToBody("<p>Original latest issue was #" + latest_number + "</p>");
+            result.appendToBody("<p>Adding new issue #" + (latest_number + 1) + "</p>");
+            result.appendToBody("<p>Adding article \""+HTMLResult.sanitizeHTMLOutput(new_article.getTitle())+"\" on the new issue</p>");
+            result.appendToBody("<p>Fetching new latest issue:</p>");
+            result.appendToBody("<p>Number: " + latest_issue.getNumber() + ", Date: " + latest_issue.getDate().format(DateTimeFormatter.ISO_LOCAL_DATE) + "</p>");
             if (!articles.isEmpty()) {
                 result.appendToBody("<ul>");
                 for (Article a : articles) {
@@ -95,6 +98,8 @@ public class TestMyDAO extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
         try {
+            //creiamo LOCALMENTE il data layer (da cui si accede ai DAO) e ci assicuriamo che venga chiuso alla fine della richiesta
+            //LOCALLY create the data layer (from which DAOs are accessed) and make sure it is closed at the end of the request
             try (DataLayer dl = new NewspaperDataLayer(ds)) {
                 dl.init();
                 request.setAttribute("datalayer", dl);
@@ -128,7 +133,7 @@ public class TestMyDAO extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        //init data source
+        //init data source (thread safe)
         try {
             InitialContext ctx = new InitialContext();
             ds = (DataSource) ctx.lookup("java:comp/env/" + config.getServletContext().getInitParameter("data.source"));
@@ -139,6 +144,7 @@ public class TestMyDAO extends HttpServlet {
 
     /**
      * Returns a short description of the servlet.
+     * @return 
      */
     @Override
     public String getServletInfo() {

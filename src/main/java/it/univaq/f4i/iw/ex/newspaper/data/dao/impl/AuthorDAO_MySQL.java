@@ -1,6 +1,7 @@
-package it.univaq.f4i.iw.ex.newspaper.data.dao;
+package it.univaq.f4i.iw.ex.newspaper.data.dao.impl;
 
-import it.univaq.f4i.iw.ex.newspaper.data.proxy.AuthorProxy;
+import it.univaq.f4i.iw.ex.newspaper.data.dao.AuthorDAO;
+import it.univaq.f4i.iw.ex.newspaper.data.model.impl.proxy.AuthorProxy;
 import it.univaq.f4i.iw.ex.newspaper.data.model.Author;
 import it.univaq.f4i.iw.framework.data.DAO;
 import it.univaq.f4i.iw.framework.data.DataException;
