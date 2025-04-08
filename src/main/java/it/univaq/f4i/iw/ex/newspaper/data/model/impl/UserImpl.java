@@ -17,6 +17,7 @@ public class UserImpl extends DataItemImpl<Integer> implements User {
     /**
      * @return the username
      */
+    @Override
     public String getUsername() {
         return username;
     }
@@ -24,6 +25,7 @@ public class UserImpl extends DataItemImpl<Integer> implements User {
     /**
      * @param username the username to set
      */
+    @Override
     public void setUsername(String username) {
         this.username = username;
     }
@@ -31,6 +33,7 @@ public class UserImpl extends DataItemImpl<Integer> implements User {
     /**
      * @return the password
      */
+    @Override
     public String getPassword() {
         return password;
     }
@@ -38,6 +41,7 @@ public class UserImpl extends DataItemImpl<Integer> implements User {
     /**
      * @param password the password to set
      */
+    @Override
     public void setPassword(String password) {
         this.password = password;
     }
