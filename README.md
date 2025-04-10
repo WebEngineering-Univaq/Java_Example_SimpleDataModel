@@ -5,9 +5,13 @@ This example shows how to implement a simple data model, and includes a model im
 
 ## Usage
 
-This is a *sample application* developed during the lectures of the  [**Web Engineering course**](https://webengineering-univaq.github.io). The code is organized to best match the lecture topics and examples. It is not intended for production use and is not optimized in any way. 
+This is a *sample application* developed during the lectures of the 
+ [**Web Engineering course**](https://webengineering-univaq.github.io). The code is organized to best match the lecture topics and examples. 
+It is not intended for production use and is not optimized in any way. 
 
-*This example code will be shown and described approximately during the 12th lecture of the course, so wait to download it, since it may get updated in the meanwhile.*
+*This example code will be shown and described approximately during the 12th 
+lecture of the course, so wait to download it, since it may get updated in 
+the meanwhile.*
 
 ## Installation
 
@@ -26,6 +30,9 @@ user that connects to the database in the application code.
 *The application assumes that the DBMS is accessible on localhost with the default port (3306) and the username/password configured by the
 database setup script. Otherwise, update the database connection parameters in the META_INF/context.xml.*
 
+## Documentation
+
+See [Documentation.md] for further information on the classes defined in this project.
 
 ---
 
