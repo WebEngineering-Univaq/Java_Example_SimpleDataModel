@@ -24,8 +24,8 @@ import java.util.List;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
 import javax.sql.DataSource;
 
 /**
@@ -93,7 +93,7 @@ public class TestMyDAO extends HttpServlet {
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
@@ -121,7 +121,7 @@ public class TestMyDAO extends HttpServlet {
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws javax.servlet.ServletException
+     * @throws jakarta.servlet.ServletException
      * @throws java.io.IOException
      */
     @Override
