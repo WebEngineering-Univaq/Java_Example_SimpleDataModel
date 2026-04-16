@@ -14,10 +14,12 @@ import java.util.logging.Logger;
 
 public class ImageImpl extends DataItemImpl<Integer> implements Image {
 
+ 
     private String caption;
     private String imageType;
     private String imageFilename;
     private long imageSize;
+
 
     public ImageImpl() {
         super();
@@ -27,6 +29,9 @@ public class ImageImpl extends DataItemImpl<Integer> implements Image {
         imageFilename = "";
 
     }
+
+  
+
 
     @Override
     public String getCaption() {
@@ -59,6 +64,7 @@ public class ImageImpl extends DataItemImpl<Integer> implements Image {
 //        ownerdatalayer.storeImageData(key, is);
 //        this.dirty = true;
 //    }
+    
     @Override
     public InputStream getImageData() throws DataException {
         try {
